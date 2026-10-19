@@ -19,7 +19,7 @@ variable "instance_profile" {
 variable "image_id" {
   description = "ID of the OS image for the VSI."
   type        = string
-  default     = "ibm-ubuntu-22-04-5-minimal-amd64-17"
+  default     = "r006-2cbe47f3-b1cd-4af6-88d4-35469bf795af"
 }
 
 variable "ssh_public_key" {
