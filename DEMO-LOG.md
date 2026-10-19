@@ -1,4 +1,4 @@
-# Demo Log — DevOps Day 2026
+# Registro de Demo — DevOps Day 2026
 ## Despliegue de infraestructura en IBM Cloud con una sola frase usando Bob
 
 **Fecha:** 19 de octubre de 2026  
@@ -33,7 +33,7 @@ Con esta única frase Bob activó el skill `provision-ibm-cloud` y comenzó el f
 ## Paso 2 — Descubrimiento de módulos privados
 
 **Qué hizo Bob:**
-- Consultó el registry privado de la organización `IBMCE` en HCP Terraform
+- Consultó el registro privado de la organización `IBMCE` en HCP Terraform
 - Identificó el módulo `vpc-standard v1.0.0` como la base de red para la VSI
 
 **Sin intervención del usuario** — solo observación.
@@ -41,15 +41,15 @@ Con esta única frase Bob activó el skill `provision-ibm-cloud` y comenzó el f
 **Resultado:**
 ```
 app.terraform.io/IBMCE/vpc-standard/ibm  v1.0.0
-Crea: VPC · Subred · Public Gateway · Security Group
+Crea: VPC · Subred · Puerta de enlace pública · Grupo de seguridad
 ```
 
 ---
 
-## Paso 3 — Consulta al registry público
+## Paso 3 — Consulta al registro público
 
 **Qué hizo Bob:**
-- Consultó el registry público de Terraform para el provider `IBM-Cloud/ibm`
+- Consultó el registro público de Terraform para el proveedor `IBM-Cloud/ibm`
 - Confirmó los argumentos requeridos para los recursos que el módulo privado no cubre
 
 **Sin intervención del usuario** — solo observación.
@@ -63,7 +63,7 @@ Crea: VPC · Subred · Public Gateway · Security Group
 
 ---
 
-## Paso 4 — Diseño propuesto ✋ Checkpoint 1
+## Paso 4 — Diseño propuesto ✋ Punto de control 1
 
 **Qué hizo Bob:**
 - Presentó el diseño completo de la infraestructura antes de crear nada
@@ -73,11 +73,11 @@ Crea: VPC · Subred · Public Gateway · Security Group
 - Confirmó el diseño completo
 - Proporcionó los datos faltantes:
   - Workspace: `payments-dev`
-  - GitHub repo: `kurono7/terraform-ibm-payments-dev`, rama `main`
-  - SSH key path: `prerequisites/ssh-keys/payments-demo.pub`
+  - Repositorio GitHub: `kurono7/terraform-ibm-payments-dev`, rama `main`
+  - Ruta de la llave SSH: `prerequisites/ssh-keys/payments-demo.pub`
 
 **Por qué es importante:**
-- Este es el primer checkpoint crítico — nada se crea hasta aquí
+- Este es el primer punto de control crítico — nada se crea hasta aquí
 - El usuario tiene visibilidad completa de lo que se va a construir antes de comprometerse
 
 ---
@@ -106,11 +106,11 @@ Directorio de trabajo: live/terraform-ibm-payments-dev/
 
 2. Creó el workspace `payments-dev` en HCP Terraform:
    - Modo: `remote`
-   - Auto-apply: `false`
-   - Sin VCS por ahora (el repo aún no tenía código Terraform)
+   - Auto-apply: `false` (requiere aprobación manual en cada apply)
+   - Sin VCS por ahora (el repositorio aún no tenía código Terraform)
 
-3. Adjuntó el variable set `ibm-cloud-creds` al workspace:
-   - Inyecta `IC_API_KEY` como variable de entorno en cada run
+3. Adjuntó el conjunto de variables `ibm-cloud-creds` al workspace:
+   - Inyecta `IC_API_KEY` como variable de entorno en cada ejecución
 
 4. Agregó la variable `ssh_public_key` (RSA 4096) al workspace
 
@@ -121,9 +121,9 @@ Directorio de trabajo: live/terraform-ibm-payments-dev/
 
 **Resultado:**
 ```
-Workspace:    payments-dev  (ws-YrR7Ex5GgRpBBwjB)
-Variable set: ibm-cloud-creds adjuntado
-Variables:    ssh_public_key · image_id
+Workspace:         payments-dev  (ws-YrR7Ex5GgRpBBwjB)
+Conjunto variables: ibm-cloud-creds adjuntado
+Variables:         ssh_public_key · image_id
 ```
 
 ---
@@ -135,7 +135,7 @@ Generó los siguientes archivos dentro de `live/terraform-ibm-payments-dev/`:
 
 | Archivo | Contenido |
 |---|---|
-| `terraform.tf` | Bloque `cloud {}` con org `IBMCE` y workspace `payments-dev` + provider `IBM-Cloud/ibm >= 1.65.0` |
+| `terraform.tf` | Bloque `cloud {}` con org `IBMCE` y workspace `payments-dev` + proveedor `IBM-Cloud/ibm >= 1.65.0` |
 | `main.tf` | `module "network"` (vpc-standard) + `ibm_is_ssh_key` + `ibm_is_instance` + `ibm_is_floating_ip` |
 | `variables.tf` | `region`, `zone`, `instance_profile`, `image_id`, `ssh_public_key` |
 | `outputs.tf` | `public_ip`, `ssh_command` |
@@ -150,17 +150,17 @@ Generó los siguientes archivos dentro de `live/terraform-ibm-payments-dev/`:
 
 **Qué hizo Bob:**
 - Generó `README.md` usando la plantilla `readme-template.md` del skill
-- Documentó: org, workspace, región/zona, repo, módulo privado, recursos, variables y outputs
+- Documentó: organización, workspace, región/zona, repositorio, módulo privado, recursos, variables y outputs
 
 **Sin intervención del usuario.**
 
 ---
 
-## Paso 9 — Validación y push ✋ Checkpoint 2
+## Paso 9 — Validación y push ✋ Punto de control 2
 
 **Qué hizo Bob:**
-- Ejecutó `terraform init -backend=false` → descargó el módulo privado y el provider
-- Ejecutó `terraform validate` → **Success**
+- Ejecutó `terraform init -backend=false` → descargó el módulo privado y el proveedor
+- Ejecutó `terraform validate` → **Éxito**
 - Presentó el resultado al usuario y pidió confirmación antes de hacer push
 
 **Qué aprobó el usuario:**
@@ -188,7 +188,7 @@ kurono7/terraform-ibm-payments-dev  →  payments-dev  (GitHub App)
 ## Paso 10 — Plan
 
 **Qué hizo Bob:**
-- Lanzó un run `plan_only` en el workspace `payments-dev`
+- Lanzó una ejecución `plan_only` en el workspace `payments-dev`
 - Esperó a que terminara y mostró los resultados
 
 **Sin intervención del usuario.**
@@ -213,7 +213,7 @@ kurono7/terraform-ibm-payments-dev  →  payments-dev  (GitHub App)
 
 ---
 
-## Paso 11 — Apply ✋ Checkpoint 3
+## Paso 11 — Apply ✋ Punto de control 3
 
 **Qué hizo Bob:**
 - Presentó el resultado del plan y preguntó si aplicar
@@ -222,7 +222,7 @@ kurono7/terraform-ibm-payments-dev  →  payments-dev  (GitHub App)
 - Escribió **`yes`**
 
 **Qué ejecutó Bob:**
-- Lanzó un run `plan_and_apply`
+- Lanzó una ejecución `plan_and_apply`
 - Confirmó el apply vía API (`/runs/<id>/actions/apply`)
 - Monitoreó el estado hasta `applied`
 
@@ -239,9 +239,9 @@ ssh_command: ssh -i prerequisites/ssh-keys/payments-demo ubuntu@52.116.135.203
 
 ---
 
-## Resumen de checkpoints
+## Resumen de puntos de control
 
-| Checkpoint | Momento | Qué decidió el usuario |
+| Punto de control | Momento | Qué decidió el usuario |
 |---|---|---|
 | **1** | Antes de crear cualquier cosa | Aprobó el diseño y dio los datos del workspace |
 | **2** | Antes del git push | Revisó `terraform validate` y autorizó subir el código a GitHub |
@@ -249,14 +249,26 @@ ssh_command: ssh -i prerequisites/ssh-keys/payments-demo ubuntu@52.116.135.203
 
 ---
 
+## Resumen de cada aprobación del usuario
+
+| # | Lo que escribió el usuario | Lo que hizo Bob |
+|---|---|---|
+| **Frase inicial** | *"I need to provision a VSI..."* | Activó el skill, consultó la organización y los módulos disponibles |
+| **Aprobación 1** | `si` (organización) | Fijó `IBMCE` como organización de trabajo |
+| **Aprobación 2** | `si` (diseño + datos) | Recibió workspace, repositorio, rama y ruta de la llave SSH |
+| **Aprobación 3** | `yes` (push) | Creó el workspace, configuró las variables, generó 6 archivos Terraform, validó y subió el código a GitHub |
+| **Aprobación 4** | `yes` (apply) | Lanzó el plan (24 seg) + apply (89 seg) → 10 recursos creados en IBM Cloud |
+
+---
+
 ## Lecciones aprendidas (errores de la primera vuelta)
 
-| Error | Causa | Fix aplicado |
+| Error | Causa | Solución aplicada |
 |---|---|---|
-| `CreateKeyWithContext failed: public key provided is not of type rsa` | La llave SSH fue generada con `ed25519` | Regenerar siempre con `ssh-keygen -t rsa -b 4096` |
+| `CreateKeyWithContext failed: public key provided is not of type rsa` | La llave SSH fue generada con `ed25519` | Siempre generar con `ssh-keygen -t rsa -b 4096` |
 | `CreateInstanceWithContext failed: image not found` | Se usó el nombre de la imagen en lugar del ID | Usar el ID real: `r006-2cbe47f3-b1cd-4af6-88d4-35469bf795af` |
-| `BearerToken property is required` | El key del variable set era `ibmCE` en lugar de `IC_API_KEY` | Verificar el nombre exacto de la variable en el variable set |
-| VCS connection error en workspace | El repo estaba vacío al crear el workspace con VCS | Crear el workspace sin VCS → hacer push → conectar VCS |
+| `BearerToken property is required` | El nombre de la variable era `ibmCE` en lugar de `IC_API_KEY` | Verificar el nombre exacto de la variable en el conjunto de variables |
+| Error de conexión VCS al crear el workspace | El repositorio estaba vacío al intentar conectarlo | Crear el workspace sin VCS → hacer push → conectar el VCS |
 | `Permission denied (publickey)` al hacer SSH | Se usó ruta relativa y usuario `root` | Usar ruta absoluta y usuario `ubuntu` |
 
 ---
@@ -264,37 +276,37 @@ ssh_command: ssh -i prerequisites/ssh-keys/payments-demo ubuntu@52.116.135.203
 ## Arquitectura desplegada
 
 ```
-┌─────────────────────────────────────────────────────┐
-│  IBM Cloud — us-south-1                             │
-│                                                     │
-│  ┌─────────────────────────────────────────────┐   │
-│  │  VPC: payments-dev-vpc                      │   │
-│  │                                             │   │
-│  │  ┌─────────────────────┐                   │   │
-│  │  │  Subnet             │ ◄── Public Gateway │   │
-│  │  │  10.240.0.0/24      │                   │   │
-│  │  │                     │                   │   │
-│  │  │  ┌───────────────┐  │                   │   │
-│  │  │  │  VSI bx2-2x8  │  │ ◄── Floating IP   │   │
-│  │  │  │  Ubuntu 22.04 │  │   52.116.135.203  │   │
-│  │  │  └───────────────┘  │                   │   │
-│  │  └─────────────────────┘                   │   │
-│  │  Security Group: SSH(22) + ICMP inbound     │   │
-│  └─────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────┐
+│  IBM Cloud — us-south-1                                 │
+│                                                         │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │  VPC: payments-dev-vpc                          │   │
+│  │                                                 │   │
+│  │  ┌─────────────────────┐                       │   │
+│  │  │  Subred             │ ◄── Puerta de enlace   │   │
+│  │  │  10.240.0.0/24      │     pública            │   │
+│  │  │                     │                       │   │
+│  │  │  ┌───────────────┐  │                       │   │
+│  │  │  │  VSI bx2-2x8  │  │ ◄── IP flotante       │   │
+│  │  │  │  Ubuntu 22.04 │  │   52.116.135.203      │   │
+│  │  │  └───────────────┘  │                       │   │
+│  │  └─────────────────────┘                       │   │
+│  │  Grupo de seguridad: SSH(22) + ICMP entrada     │   │
+│  └─────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Comando para conectarse
+## Comando para conectarse a la VSI
 
 ```bash
 ssh -i ~/Downloads/devops-day-2026/prerequisites/ssh-keys/payments-demo ubuntu@52.116.135.203
 ```
 
-## Comando para destruir
+## Comando para destruir la infraestructura
 
-```bash
-# Pídele a Bob:
+Pídeselo a Bob:
+```
 Trigger a destroy run on the payments-dev workspace in IBMCE.
 ```
