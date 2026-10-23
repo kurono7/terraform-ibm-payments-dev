@@ -22,10 +22,10 @@ variable "subnet_cidr" {
   default     = "10.240.0.0/24"
 }
 
-variable "image_id" {
-  description = "VSI image ID. Default: ibm-ubuntu-22-04-5-minimal-amd64 in us-south."
+variable "image_name" {
+  description = "VPC image name. Resolved to ID at plan time via data source — update when IBM publishes a new revision."
   type        = string
-  default     = "r006-2cbe47f3-b1cd-4af6-88d4-35469bf795af"
+  default     = "ibm-ubuntu-22-04-5-minimal-amd64-19"
 }
 
 variable "profile" {

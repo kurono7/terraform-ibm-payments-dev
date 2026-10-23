@@ -1,3 +1,7 @@
+data "ibm_is_image" "ubuntu" {
+  name = var.image_name
+}
+
 module "network" {
   source  = "app.terraform.io/IBMCE/vpc-standard/ibm"
   version = "1.0.0"
@@ -18,7 +22,7 @@ resource "ibm_is_ssh_key" "payments" {
 
 resource "ibm_is_instance" "payments" {
   name    = "${var.name}-vsi"
-  image   = var.image_id
+  image   = data.ibm_is_image.ubuntu.id
   profile = var.profile
 
   vpc  = module.network.vpc_id
