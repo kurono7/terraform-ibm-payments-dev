@@ -27,9 +27,13 @@ resource "ibm_is_ssh_key" "payments" {
 # ------------------------------------------------------------------
 # VSI
 # ------------------------------------------------------------------
+data "ibm_is_image" "ubuntu" {
+  name = var.image_name
+}
+
 resource "ibm_is_instance" "payments" {
   name    = "${var.name}-vsi"
-  image   = "ibm-ubuntu-22-04-5-minimal-amd64-19"
+  image   = data.ibm_is_image.ubuntu.id
   profile = var.instance_profile
   zone    = var.zone
 

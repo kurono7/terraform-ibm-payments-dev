@@ -28,6 +28,12 @@ variable "instance_profile" {
   default     = "bx2-2x8"
 }
 
+variable "image_name" {
+  description = "Name of the IBM Cloud OS image; resolved to its ID with data.ibm_is_image."
+  type        = string
+  default     = "ibm-ubuntu-22-04-5-minimal-amd64-19"
+}
+
 variable "tags" {
   description = "Tags to attach to all resources."
   type        = list(string)
