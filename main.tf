@@ -29,7 +29,7 @@ resource "ibm_is_ssh_key" "payments" {
 # ------------------------------------------------------------------
 resource "ibm_is_instance" "payments" {
   name    = "${var.name}-vsi"
-  image   = "ibm-ubuntu-22-04-5-minimal-amd64-3"
+  image   = "ibm-ubuntu-22-04-5-minimal-amd64-19"
   profile = var.instance_profile
   zone    = var.zone
 
