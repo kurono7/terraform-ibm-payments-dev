@@ -1,7 +1,7 @@
 # Terraform downloaded providers and modules — never commit binaries
 .terraform/
 
-# Lock file: HCP Terraform manage its own provider versions; local lock
+# Lock file: HCP Terraform manages its own provider versions; local lock
 # causes version conflicts when the remote workspace uses a different OS/arch
 .terraform.lock.hcl
 
