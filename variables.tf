@@ -25,7 +25,7 @@ variable "subnet_cidr" {
 variable "image_id" {
   description = "VSI image ID. Default: ibm-ubuntu-22-04-5-minimal-amd64 in us-south."
   type        = string
-  default     = "ibm-ubuntu-22-04-5-minimal-amd64-3"
+  default     = "r006-2cbe47f3-b1cd-4af6-88d4-35469bf795af"
 }
 
 variable "profile" {
